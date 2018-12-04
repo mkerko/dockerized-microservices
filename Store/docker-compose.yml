@@ -1,0 +1,63 @@
+#version: '3'
+#services:
+#  db:
+#    image: mysql:latest
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=root
+#      - MYSQL_DATABASE=wf
+#      - MYSQL_USER=root
+#      - MYSQL_PASSSWORD=root
+#    ports:
+#      - 5001:3306
+#
+#  store:
+#    image: store2
+#    depends_on: [db, rabbit]
+#    ports:
+#      - 5002:8081
+#
+#  warehouse:
+#    image: warehouse2
+#    depends_on: [db, rabbit]
+#    ports:
+#      - 5003:8082
+#
+#  rabbit:
+#    image: rabbitmq:3.5.3-management
+#    ports:
+#      - 5004:5672
+
+version: "3"
+services:
+  store:
+    depends_on: [db, rabbit]
+    build:
+      context: .
+      args:
+        LOCAL_ENV: 'true'
+    ports:
+      - 5002:8081
+
+  warehouse:
+    depends_on: [db, rabbit]
+    build:
+      context: .
+      args:
+        LOCAL_ENV: 'true'
+    ports:
+    - 5003:8082
+
+  db:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=wf
+      - MYSQL_USER=root
+      - MYSQL_PASSSWORD=root
+    ports:
+      - 5001:3306
+
+  rabbit:
+      image: rabbitmq:3.5.3-management
+      ports:
+        - 5004:5672
