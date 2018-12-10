@@ -17,7 +17,7 @@ import java.util.concurrent.Callable;
 @Component
 public class CheckProductAvailabilityTask implements Callable<Boolean> {
 
-    private static final String RETRIEVE_WAREHOUSE_ITEM_PATH = "/retrieveWarehouseItem?itemId=";
+    private static final String RETRIEVE_WAREHOUSE_ITEM_PATH = "/items/";
 
     @Setter
     @Getter
