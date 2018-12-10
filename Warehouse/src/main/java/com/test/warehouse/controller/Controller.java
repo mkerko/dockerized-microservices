@@ -20,8 +20,8 @@ public class Controller {
         this.itemService = itemService;
     }
 
-    @GetMapping(path = "/retrieveWarehouseItem")
-    public Item checkProductAvailability(@RequestParam(name = "itemId") Long itemId) throws EntityWasNotFoundException {
+    @GetMapping(path = "/items/{id}")
+    public Item checkProductAvailability(@PathVariable(name = "id") Long itemId) throws EntityWasNotFoundException {
         log.debug("retrieveWarehouseItem has been called");
         return itemService.retrieveItem(itemId);
     }
