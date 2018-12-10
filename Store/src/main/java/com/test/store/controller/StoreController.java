@@ -32,13 +32,13 @@ public class StoreController {
         this.rabbitService = rabbitService;
     }
 
-    @GetMapping("/customerCheck")
-    public String checkCustomer(@RequestParam(name = "customerId") Long productId) throws EntityWasNotFoundException {
+    @GetMapping("/customers/{customerId}")
+    public String checkCustomer(@PathVariable(name = "customerId") Long customerId) throws EntityWasNotFoundException {
         log.debug("customerCheck has been called");
-        return customerService.retrieveCustomerById(productId).getName();
+        return customerService.retrieveCustomerById(customerId).getName();
     }
 
-    @GetMapping("/addProductToCart")
+    @PostMapping("/orders/add")
     public String addProductToCart(@NotNull @RequestParam(name = "productId") Long productId,
                                    @NotNull @RequestParam(name = "orderId") Long orderId,
                                    @NotNull @RequestParam(name = "amount") int amount)
